@@ -9,17 +9,14 @@ def sort(arr):
 	# 	for j in range(0,n-i-1):
 	# 		if arr[j] > arr[j+1]:
 	# 			arr[j], arr[j+1] = arr[j+1], arr[j]
-	# 1/0
 	# while True:
 	# 	pass
-	while True:
-		pass
+	# 1/0
 	arr.sort()
 	return arr
 
 
 print(*sort(arr))
-
 
 
 

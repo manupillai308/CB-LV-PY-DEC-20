@@ -3,7 +3,7 @@ import os
 import subprocess
 import time
 # import resource
-import psutil
+# import psutil <- install using pip: pip install psutil
 import multiprocessing
 
 # python_file, input_file, correct_out_file = sys.argv[1], sys.argv[2], sys.argv[3]
@@ -13,11 +13,12 @@ import multiprocessing
 # command = "python " + python_file + " < " + input_file + " > " + output_file
 
 def run(python_file, input_file, correct_out_file, test_case_no):
-	init_time = time.time()
 	# ret = os.system(command)
 	input_data = open(input_file).read()
+	init_time = time.time()
 	pipe = subprocess.Popen([sys.executable, python_file], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-	pipe.stdin.write(input_data.encode("utf-8"))
+	# pipe = subprocess.Popen("python " + python_file, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	# pipe.stdin.write(input_data.encode("utf-8"))
 
 	# output = open(output_file).read()
 
@@ -35,12 +36,18 @@ def run(python_file, input_file, correct_out_file, test_case_no):
 	# 	print(psutil.Process(pipe.pid).memory_full_info())
 	# 	time.sleep(1)
 
-	output = pipe.stdout.read()
-	error = pipe.stderr.read()
+	# output = pipe.stdout.read()
+	# error = pipe.stderr.read()
+	# final_time = time.time()
+
+	# pipe.wait()
+	try:
+		output, error = pipe.communicate(input_data.encode("utf-8"), timeout=5)
+	except subprocess.TimeoutExpired:
+		pipe.kill()
+		return (test_case_no, "Timeout", time.time() - init_time)
+
 	final_time = time.time()
-
-	pipe.wait()
-
 	# print(resource.getrusage(resource.RUSAGE_CHILDREN))
 	# sys.exit(0)
 
@@ -80,7 +87,7 @@ if __name__ == "__main__":
 	p = multiprocessing.Pool(len(args))
 
 	results = p.starmap(run, args)
-
+	# print(results)
 	import tabulate
 
 	print(tabulate.tabulate(sorted(results), headers=["Test Case", "Result", "Time Taken/Error Description"],tablefmt="grid"))
