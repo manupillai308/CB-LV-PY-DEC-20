@@ -1,0 +1,16 @@
+<html>
+    <body>
+      <form action="/" method="POST">
+        <h1>Sum</h1>
+        <!-- <p>Hello this is my first HTML</p> -->
+        <label for="n1">Enter number 1</label>
+        <input type="text" id="n1" name="n1"><br><br>
+        <label for="n2">Enter number 2</label>
+        <input type="text" id="n2" name="n2"><br><br>
+        <input type="submit" value="Submit">
+      </form>
+      {% if val %}
+      <h3>Answer {{ ans }}</h3>
+      {% endif %}
+    </body>
+</html>
