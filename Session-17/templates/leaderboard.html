@@ -1,0 +1,19 @@
+<html>
+    <center>
+    <head><h1>Leaderboard</h1></head>
+    <body>
+        <table>
+            <tr> 
+                <th>Submission Id</th>
+                <th>Result</th>
+            </tr>
+            {% for lb in lbs %}
+            <tr>
+                <td><a href="/submission/{{ lb[0] }}">{{ lb[0] }}</a></td>
+                <td>{{ lb[1] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+    </center>
+</html>

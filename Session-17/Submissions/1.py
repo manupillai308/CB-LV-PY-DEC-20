@@ -12,8 +12,8 @@ def sort(arr):
 	# 1/0
 	# while True:
 	# 	pass
-	#while True:
-	#	pass
+	# while True:
+	# 	pass
 	arr.sort()
 	return arr
 

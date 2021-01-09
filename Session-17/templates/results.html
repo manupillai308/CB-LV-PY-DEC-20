@@ -1,0 +1,27 @@
+<html>
+    <center>
+    <head><h1>Submission {{ id }}</h1></head>
+    <body>
+        <table>
+            <tr> 
+                <th>Test Case</th>
+                <th>Result</th>
+                <th>"Time Taken/Error Description"</th>
+            </tr>
+            {% for result in results %}
+            <tr>
+                <td>{{ result[0] }}</td>
+                <td>{{ result[1] }}</td>
+                <td>{{ result[2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br><br><br>
+
+        <form action="/submission/{{ id }}" method="GET">
+            <input type="hidden" value="True" name="download" id="download">
+            <input type=submit value="Get Code">
+        </form>
+    </body>
+    </center>
+</html>
